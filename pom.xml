@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.codeandscale.payment</groupId>
+    <artifactId>mvola-client</artifactId>
+    <version>1.0.0-SNAPSHOT</version>
+    <packaging>jar</packaging>
+    <name>mvola-client</name>
+    <description>A simple java client for M'VOLA APIs</description>
+
+    <properties>
+        <java.version>1.8</java.version>
+        <mvola.wsdl.url>https://www.telma.net/mpgw/v2/ws/MPGwApi</mvola.wsdl.url>
+        <spring.ws.core>3.0.7.RELEASE</spring.ws.core>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.18.0</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.ws</groupId>
+            <artifactId>spring-ws-core</artifactId>
+            <version>${spring.ws.core}</version>
+        </dependency>
+
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.jvnet.jaxb2.maven2</groupId>
+                <artifactId>maven-jaxb2-plugin</artifactId>
+                <version>0.13.1</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>generate</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <schemaLanguage>WSDL</schemaLanguage>
+                    <generatePackage>com.codeandscale.payment.mvola.v2.wsdl</generatePackage>
+                    <schemas>
+                        <schema>
+                            <url>${mvola.wsdl.url}</url>
+                        </schema>
+                    </schemas>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+    
+</project>
