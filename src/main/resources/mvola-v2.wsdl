@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<definitions xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="https://www.telma.net/mpgw/v2/ws/MPGwApi" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap-enc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" name="MPGwApi" targetNamespace="https://www.telma.net/mpgw/v2/ws/MPGwApi">
+  <portType name="MPGwApiPortType">
+    <operation name="WS_MPGw_PaymentRequest">
+      <input message="tns:WS_MPGw_PaymentRequestRequest"/>
+      <output message="tns:WS_MPGw_PaymentRequestResponse"/>
+    </operation>
+    <operation name="WS_MPGw_CheckTransactionStatus">
+      <input message="tns:WS_MPGw_CheckTransactionStatusRequest"/>
+      <output message="tns:WS_MPGw_CheckTransactionStatusResponse"/>
+    </operation>
+    <operation name="WS_MPGw_paymentResponse">
+      <input message="tns:WS_MPGw_paymentResponseRequest"/>
+      <output message="tns:WS_MPGw_paymentResponseResponse"/>
+    </operation>
+  </portType>
+  <types>
+    <xsd:schema targetNamespace="https://www.telma.net/mpgw/v2/ws/MPGwApi">
+      <xsd:complexType name="MPGw.CoreBundle.ServiceResponse.PaymentRequestRequest">
+        <xsd:all>
+          <xsd:element name="Login_WS" type="xsd:string"/>
+          <xsd:element name="Password_WS" type="xsd:string"/>
+          <xsd:element name="HashCode_WS" type="xsd:string"/>
+          <xsd:element name="ShopTransactionAmount" type="xsd:int"/>
+          <xsd:element name="ShopTransactionID" type="xsd:string"/>
+          <xsd:element name="ShopTransactionLabel" type="xsd:string"/>
+          <xsd:element name="ShopShippingName" type="xsd:string" nillable="true"/>
+          <xsd:element name="ShopShippingAddress" type="xsd:string" nillable="true"/>
+          <xsd:element name="UserField1" type="xsd:string" nillable="true"/>
+          <xsd:element name="UserField2" type="xsd:string" nillable="true"/>
+          <xsd:element name="UserField3" type="xsd:string" nillable="true"/>
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="MPGw.CoreBundle.ServiceResponse.PaymentRequestResponse">
+        <xsd:all>
+          <xsd:element name="APIVersion" type="xsd:string"/>
+          <xsd:element name="ResponseCode" type="xsd:int"/>
+          <xsd:element name="ResponseCodeDescription" type="xsd:string"/>
+          <xsd:element name="MPGw_TokenID" type="xsd:string"/>
+          <xsd:element name="ShopTransactionAmount" type="xsd:string" nillable="true"/>
+          <xsd:element name="ShopTransactionID" type="xsd:string" nillable="true"/>
+          <xsd:element name="ShopTransactionLabel" type="xsd:string" nillable="true"/>
+          <xsd:element name="ShopShippingName" type="xsd:string" nillable="true"/>
+          <xsd:element name="ShopShippingAddress" type="xsd:string" nillable="true"/>
+          <xsd:element name="UserField1" type="xsd:string" nillable="true"/>
+          <xsd:element name="UserField2" type="xsd:string" nillable="true"/>
+          <xsd:element name="UserField3" type="xsd:string" nillable="true"/>
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="MPGw.CoreBundle.ServiceResponse.CheckTransactionStatusRequest">
+        <xsd:all>
+          <xsd:element name="Login_WS" type="xsd:string"/>
+          <xsd:element name="Password_WS" type="xsd:string"/>
+          <xsd:element name="HashCode_WS" type="xsd:string"/>
+          <xsd:element name="MPGw_TokenID" type="xsd:string"/>
+        </xsd:all>
+      </xsd:complexType>
+      <xsd:complexType name="MPGw.CoreBundle.ServiceResponse.CheckTransactionStatusResponse">
+        <xsd:all>
+          <xsd:element name="APIVersion" type="xsd:string"/>
+          <xsd:element name="ResponseCode" type="xsd:int"/>
+          <xsd:element name="ResponseCodeDescription" type="xsd:string"/>
+          <xsd:element name="MPGw_TokenID" type="xsd:string"/>
+          <xsd:element name="ShopTransactionAmount" type="xsd:string" nillable="true"/>
+          <xsd:element name="ShopTransactionID" type="xsd:string" nillable="true"/>
+          <xsd:element name="MvolaTransactionID" type="xsd:string" nillable="true"/>
+          <xsd:element name="MvolaTransactionStatus" type="xsd:string" nillable="true"/>
+          <xsd:element name="ShopTransactionLabel" type="xsd:string" nillable="true"/>
+          <xsd:element name="ShopShippingName" type="xsd:string" nillable="true"/>
+          <xsd:element name="ShopShippingAddress" type="xsd:string" nillable="true"/>
+          <xsd:element name="UserField1" type="xsd:string" nillable="true"/>
+          <xsd:element name="UserField2" type="xsd:string" nillable="true"/>
+          <xsd:element name="UserField3" type="xsd:string" nillable="true"/>
+          <xsd:element name="TransactionStatusCode" type="xsd:int"/>
+          <xsd:element name="TransactionStatusDescription" type="xsd:string" nillable="true"/>
+        </xsd:all>
+      </xsd:complexType>
+    </xsd:schema>
+  </types>
+  <message name="WS_MPGw_PaymentRequestRequest">
+    <part name="APIVersion" type="xsd:string"/>
+    <part name="parameters" type="tns:MPGw.CoreBundle.ServiceResponse.PaymentRequestRequest"/>
+  </message>
+  <message name="WS_MPGw_PaymentRequestResponse">
+    <part name="return" type="tns:MPGw.CoreBundle.ServiceResponse.PaymentRequestResponse"/>
+  </message>
+  <message name="WS_MPGw_CheckTransactionStatusRequest">
+    <part name="APIVersion" type="xsd:string"/>
+    <part name="parameters" type="tns:MPGw.CoreBundle.ServiceResponse.CheckTransactionStatusRequest"/>
+  </message>
+  <message name="WS_MPGw_CheckTransactionStatusResponse">
+    <part name="return" type="tns:MPGw.CoreBundle.ServiceResponse.CheckTransactionStatusResponse"/>
+  </message>
+  <message name="WS_MPGw_paymentResponseRequest">
+    <part name="MPGw_TokenID" type="xsd:string"/>
+    <part name="MVola_TransactionID" type="xsd:string"/>
+    <part name="MVola_TransactionStatus" type="xsd:string"/>
+    <part name="Amount" type="xsd:int"/>
+    <part name="CustomerMSISDN" type="xsd:string"/>
+    <part name="ShopMSISDN" type="xsd:string"/>
+  </message>
+  <message name="WS_MPGw_paymentResponseResponse">
+    <part name="return" type="xsd:int"/>
+  </message>
+  <service name="MPGwApiService">
+    <port name="MPGwApiPort" binding="tns:MPGwApiBinding">
+      <soap:address location="https://www.telma.net/mpgw/v2/ws/MPGwApi"/>
+    </port>
+  </service>
+  <binding name="MPGwApiBinding" type="tns:MPGwApiPortType">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="rpc"/>
+    <operation name="WS_MPGw_PaymentRequest">
+      <soap:operation soapAction="https://www.telma.net/mpgw/v2/ws/MPGwApiWS_MPGw_PaymentRequest"/>
+      <input>
+        <soap:body use="literal" namespace="https://www.telma.net/mpgw/v2/ws/MPGwApi" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+      </input>
+      <output>
+        <soap:body use="literal" namespace="https://www.telma.net/mpgw/v2/ws/MPGwApi" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+      </output>
+    </operation>
+    <operation name="WS_MPGw_CheckTransactionStatus">
+      <soap:operation soapAction="https://www.telma.net/mpgw/v2/ws/MPGwApiWS_MPGw_CheckTransactionStatus"/>
+      <input>
+        <soap:body use="literal" namespace="https://www.telma.net/mpgw/v2/ws/MPGwApi" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+      </input>
+      <output>
+        <soap:body use="literal" namespace="https://www.telma.net/mpgw/v2/ws/MPGwApi" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+      </output>
+    </operation>
+    <operation name="WS_MPGw_paymentResponse">
+      <soap:operation soapAction="https://www.telma.net/mpgw/v2/ws/MPGwApiWS_MPGw_paymentResponse"/>
+      <input>
+        <soap:body use="literal" namespace="https://www.telma.net/mpgw/v2/ws/MPGwApi" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+      </input>
+      <output>
+        <soap:body use="literal" namespace="https://www.telma.net/mpgw/v2/ws/MPGwApi" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+      </output>
+    </operation>
+  </binding>
+</definitions>

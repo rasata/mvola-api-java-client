@@ -15,4 +15,8 @@ public class Authentication
 		this.password = password;
 		this.hash = hash;
 	}
+
+	public Authentication()
+	{
+	}
 }
