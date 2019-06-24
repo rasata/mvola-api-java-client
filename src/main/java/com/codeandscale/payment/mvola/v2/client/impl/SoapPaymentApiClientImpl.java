@@ -1,7 +1,7 @@
 package com.codeandscale.payment.mvola.v2.client.impl;
 
+import com.codeandscale.payment.mvola.v2.ApiAuthentication;
 import com.codeandscale.payment.mvola.v2.ApiEndpoint;
-import com.codeandscale.payment.mvola.v2.Authentication;
 import com.codeandscale.payment.mvola.v2.client.*;
 import https.www_telma_net.mpgw.v2.ws.mpgwapi.*;
 import org.apache.commons.lang3.reflect.FieldUtils;
@@ -10,22 +10,22 @@ import java.net.MalformedURLException;
 
 public class SoapPaymentApiClientImpl implements PaymentApiClient
 {
-	private final Authentication authentication;
+	private final ApiAuthentication apiAuthentication;
 
-	public SoapPaymentApiClientImpl(Authentication authentication)
+	public SoapPaymentApiClientImpl(ApiAuthentication apiAuthentication)
 	{
-		this.authentication = authentication;
+		this.apiAuthentication = apiAuthentication;
 	}
 
 	@Override
-	public PaymentToken requestPayment(PaymentRequest paymentRequest) throws PaymentClientException
+	public PaymentToken requestPayment(PaymentRequest paymentRequest) throws PaymentApiClientException
 	{
 		try
 		{
 			MPGwCoreBundleServiceResponsePaymentRequestRequest request = new MPGwCoreBundleServiceResponsePaymentRequestRequest();
-			request.setLoginWS(authentication.getLogin());
-			request.setPasswordWS(authentication.getPassword());
-			request.setHashCodeWS(authentication.getHash());
+			request.setLoginWS(apiAuthentication.getLogin());
+			request.setPasswordWS(apiAuthentication.getPassword());
+			request.setHashCodeWS(apiAuthentication.getHash());
 			request.setShopTransactionID(paymentRequest.getId());
 			request.setShopTransactionLabel(paymentRequest.getLabel());
 			request.setShopTransactionAmount(paymentRequest.getAmount().intValue());
@@ -38,19 +38,19 @@ public class SoapPaymentApiClientImpl implements PaymentApiClient
 		}
 		catch (MalformedURLException | IllegalAccessException e)
 		{
-			throw new PaymentClientException(e);
+			throw new PaymentApiClientException(e);
 		}
 	}
 
 	@Override
-	public PaymentStatus getPaymentStatus(PaymentToken token) throws PaymentClientException
+	public PaymentStatus getPaymentStatus(PaymentToken token) throws PaymentApiClientException
 	{
 		try
 		{
 			MPGwCoreBundleServiceResponseCheckTransactionStatusRequest request = new MPGwCoreBundleServiceResponseCheckTransactionStatusRequest();
-			request.setLoginWS(authentication.getLogin());
-			request.setPasswordWS(authentication.getPassword());
-			request.setHashCodeWS(authentication.getHash());
+			request.setLoginWS(apiAuthentication.getLogin());
+			request.setPasswordWS(apiAuthentication.getPassword());
+			request.setHashCodeWS(apiAuthentication.getHash());
 			request.setMPGwTokenID(token.getId());
 
 			MPGwCoreBundleServiceResponseCheckTransactionStatusResponse response = getApiPortType().wsMPGwCheckTransactionStatus(ApiEndpoint.VERSION, request);
@@ -60,11 +60,11 @@ public class SoapPaymentApiClientImpl implements PaymentApiClient
 		}
 		catch (MalformedURLException | IllegalAccessException e)
 		{
-			throw new PaymentClientException(e);
+			throw new PaymentApiClientException(e);
 		}
 	}
 
-	private void responseSanityCheck(Object response) throws PaymentClientException, IllegalAccessException
+	private void responseSanityCheck(Object response) throws PaymentApiClientException, IllegalAccessException
 	{
 		if (response != null)
 		{
@@ -74,17 +74,17 @@ public class SoapPaymentApiClientImpl implements PaymentApiClient
 
 				if (!ApiEndpoint.VERSION.equals(apiVersion))
 				{
-					throw new PaymentClientException(PaymentClientExceptionMessage.VERSION_MISMATCH);
+					throw new PaymentApiClientException(PaymentApiClientExceptionMessage.VERSION_MISMATCH);
 				}
 			}
 			else
 			{
-				throw new PaymentClientException(PaymentClientExceptionMessage.REMOTE_RESPONSE_ERROR);
+				throw new PaymentApiClientException(PaymentApiClientExceptionMessage.REMOTE_RESPONSE_ERROR);
 			}
 		}
 		else
 		{
-			throw new PaymentClientException(PaymentClientExceptionMessage.REMOTE_RESPONSE_ERROR);
+			throw new PaymentApiClientException(PaymentApiClientExceptionMessage.REMOTE_RESPONSE_ERROR);
 		}
 	}
 
