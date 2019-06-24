@@ -1,6 +1,6 @@
 package com.codeandscale.payment.mvola.v2.client;
 
-public interface PaymentClient
+public interface PaymentApiClient
 {
 	PaymentToken requestPayment(PaymentRequest request) throws PaymentClientException;
 
