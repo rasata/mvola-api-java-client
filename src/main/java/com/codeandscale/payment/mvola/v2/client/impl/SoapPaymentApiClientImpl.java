@@ -34,7 +34,14 @@ public class SoapPaymentApiClientImpl implements PaymentApiClient
 
 			responseSanityCheck(response);
 
-			return new PaymentToken(response.getMPGwTokenID());
+			if (!"Error".equals(response.getMPGwTokenID()))
+			{
+				return new PaymentToken(response.getMPGwTokenID());
+			}
+			else
+			{
+				throw new PaymentApiClientException(response.getResponseCodeDescription());
+			}
 		}
 		catch (MalformedURLException | IllegalAccessException e)
 		{
