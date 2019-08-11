@@ -5,10 +5,10 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.codeandscale.payment</groupId>
-    <artifactId>mvola-api-client</artifactId>
+    <artifactId>mvola-api-java-client</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <packaging>jar</packaging>
-    <name>mvola-api-client</name>
+    <name>mvola-api-java-client</name>
     <description>A simple java client library for M'VOLA API</description>
 
     <properties>
