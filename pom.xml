@@ -14,7 +14,7 @@
     <properties>
         <java.version>1.8</java.version>
         <mvola.wsdl.url>https://www.telma.net/mpgw/v2/ws/MPGwApi</mvola.wsdl.url>
-        <cxf.version>3.1.6</cxf.version>
+        <cxf.version>3.3.0</cxf.version>
     </properties>
 
     <licenses>
@@ -87,7 +87,7 @@
                             <sourceRoot>${basedir}/src/main/java</sourceRoot>
                             <wsdlOptions>
                                 <wsdlOption>
-                                    <wsdl>${basedir}/src/main/resources/mvola-v2.wsdl</wsdl>
+                                    <wsdl>${mvola.wsdl.url}</wsdl>
                                 </wsdlOption>
                             </wsdlOptions>
                         </configuration>
