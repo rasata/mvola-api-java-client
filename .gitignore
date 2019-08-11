@@ -1,3 +1,5 @@
 *.iml
 .idea
 src/test
+target/
+src/main/java/https/www_telma_net/
