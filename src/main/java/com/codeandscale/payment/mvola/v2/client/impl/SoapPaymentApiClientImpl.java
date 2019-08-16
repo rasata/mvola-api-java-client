@@ -18,7 +18,7 @@ public class SoapPaymentApiClientImpl implements PaymentApiClient
 	}
 
 	@Override
-	public PaymentToken requestPayment(PaymentRequest paymentRequest) throws PaymentApiClientException
+	public PaymentResponse requestPayment(PaymentRequest paymentRequest) throws PaymentApiClientException
 	{
 		try
 		{
@@ -36,7 +36,7 @@ public class SoapPaymentApiClientImpl implements PaymentApiClient
 
 			if (!"Error".equals(response.getMPGwTokenID()))
 			{
-				return new PaymentToken(response.getMPGwTokenID());
+				return new PaymentResponse(response.getMPGwTokenID());
 			}
 			else
 			{
@@ -50,7 +50,7 @@ public class SoapPaymentApiClientImpl implements PaymentApiClient
 	}
 
 	@Override
-	public PaymentStatus getPaymentStatus(PaymentToken token) throws PaymentApiClientException
+	public PaymentStatus getPaymentStatus(String token) throws PaymentApiClientException
 	{
 		try
 		{
@@ -58,7 +58,7 @@ public class SoapPaymentApiClientImpl implements PaymentApiClient
 			request.setLoginWS(apiAuthentication.getLogin());
 			request.setPasswordWS(apiAuthentication.getPassword());
 			request.setHashCodeWS(apiAuthentication.getHash());
-			request.setMPGwTokenID(token.getId());
+			request.setMPGwTokenID(token);
 
 			MPGwCoreBundleServiceResponseCheckTransactionStatusResponse response = getApiPortType().wsMPGwCheckTransactionStatus(ApiEndpoint.VERSION, request);
 			responseSanityCheck(response);
